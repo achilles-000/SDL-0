@@ -20,6 +20,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+        //create renderer
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
     // Main loop
     SDL_bool running = SDL_TRUE;
     while (running) {
@@ -54,13 +63,7 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-            if (!renderer) {
-        printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
+
 
      SDL_SetRenderDrawColor(renderer, 0, 0 ,0, 255);
      SDL_RenderClear(renderer);
@@ -73,13 +76,7 @@ int main(int argc, char *argv[]) {
     // Update the screen
     SDL_RenderPresent(renderer);
 
-    // Wait for 3 seconds
-    SDL_Delay(3000);
 
-    // Clean up
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
 
 
 
@@ -88,6 +85,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Clean up
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
