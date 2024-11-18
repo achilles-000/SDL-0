@@ -70,12 +70,18 @@ int main(int argc, char *argv[]) {
 
          // Set the draw color to red and draw a filled rectangle
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_Rect rect = {100, 100, 200, 150};
+    SDL_Rect rect = {100, 300, 100, 100};
     SDL_RenderFillRect(renderer, &rect);
 
-    // Update the screen
-    SDL_RenderPresent(renderer);
 
+// (x1,y1) and (x2,y2)
+SDL_RenderDrawLine(renderer, 50, 50, 200, 200);
+
+
+
+    // Update the s creen
+    SDL_RenderPresent(renderer);
+ 
 
 
 
