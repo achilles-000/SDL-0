@@ -54,6 +54,35 @@ int main(int argc, char *argv[]) {
             }
         }
 
+        SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+            if (!renderer) {
+        printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+     SDL_SetRenderDrawColor(renderer, 0, 0 ,0, 255);
+     SDL_RenderClear(renderer);
+
+         // Set the draw color to red and draw a filled rectangle
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_Rect rect = {100, 100, 200, 150};
+    SDL_RenderFillRect(renderer, &rect);
+
+    // Update the screen
+    SDL_RenderPresent(renderer);
+
+    // Wait for 3 seconds
+    SDL_Delay(3000);
+
+    // Clean up
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+
+
         // Delay to reduce CPU usage
         SDL_Delay(10);
     }
