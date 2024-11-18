@@ -18,6 +18,14 @@ int main(int argc, char *argv[]) {
     int horizontal = 100;
     int vertical = 300;
 
+    struct direction {
+        bool up =false;
+
+
+
+
+    }
+
     // Create a window
     SDL_Window *window = SDL_CreateWindow("Movable Window",
                                           SDL_WINDOWPOS_UNDEFINED,
@@ -117,21 +125,14 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         // Set the draw color to red and draw a filled rectangle
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_Rect rect = {horizontal, vertical, 100, 100};
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_Rect rect = {horizontal, vertical, 25, 100};
         SDL_RenderFillRect(renderer, &rect);
-
-        i * 10;
-        // (x1, y1) and (x2, y2)
-        SDL_RenderDrawLine(renderer, 50, +200 + i, 500, 200 + i);
-
-        i++;
 
         // Update the screen
         SDL_RenderPresent(renderer);
 
-        // Delay to reduce CPU usage
-        //SDL_Delay(10);
+
     }
 
     // Clean up
