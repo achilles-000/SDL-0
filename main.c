@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(int argc, char *argv[]) {
     // Initialize SDL
@@ -8,8 +9,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    //Variables:
+    // Variables:
     int i = 1;
+    bool right = false;
+    bool left = false;
+    bool up = false;
+    bool down = false;
+    int horizontal = 100;
+    int vertical = 300;
 
     // Create a window
     SDL_Window *window = SDL_CreateWindow("Movable Window",
@@ -23,7 +30,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-        //create renderer
+    // Create renderer
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
@@ -38,10 +45,11 @@ int main(int argc, char *argv[]) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
-                case SDL_QUIT:
+                case SDL_QUIT: {
                     running = SDL_FALSE;
                     break;
-                case SDL_MOUSEBUTTONDOWN:
+                }
+                case SDL_MOUSEBUTTONDOWN: {
                     if (event.button.button == SDL_BUTTON_LEFT) {
                         // Save the initial window position
                         int initialX, initialY;
@@ -61,39 +69,69 @@ int main(int argc, char *argv[]) {
                         }
                     }
                     break;
+                }
+                case SDL_KEYDOWN: {
+                    if (event.key.keysym.sym == SDLK_w) {
+                        up = true;
+                    }
+                    if (event.key.keysym.sym == SDLK_a) {
+                        left = true;
+                    }
+                    if (event.key.keysym.sym == SDLK_s) {
+                        down = true;
+                    }
+                    if (event.key.keysym.sym == SDLK_d) {
+                        right = true;
+                    }
+                    break;
+
+                }
+                case SDL_KEYUP: {
+                    if (event.key.keysym.sym == SDLK_w) {
+                        up = false;
+                    }
+                    if (event.key.keysym.sym == SDLK_a) {
+                        left = false;
+                    }
+                    if (event.key.keysym.sym == SDLK_s) {
+                        down = false;
+                    }
+                    if (event.key.keysym.sym == SDLK_d) {
+                        right = false;
+                    }
+                    break;
+
+                }
                 default:
                     break;
             }
         }
 
+        if(up == true)vertical -= 1;
+        if(down == true)vertical += 1;
+        if(left == true)horizontal -= 1;
+        if(right == true)horizontal += 1;
+        
 
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
 
-     SDL_SetRenderDrawColor(renderer, 0, 0 ,0, 255);
-     SDL_RenderClear(renderer);
+        // Set the draw color to red and draw a filled rectangle
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_Rect rect = {horizontal, vertical, 100, 100};
+        SDL_RenderFillRect(renderer, &rect);
 
-    // Set the draw color to red and draw a filled rectangle
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_Rect rect = {100, 300, 100, 100};
-    SDL_RenderFillRect(renderer, &rect);
+        i * 10;
+        // (x1, y1) and (x2, y2)
+        SDL_RenderDrawLine(renderer, 50, +200 + i, 500, 200 + i);
 
+        i++;
 
-
-i * 10;
-// (x1,y1) and (x2,y2)
-SDL_RenderDrawLine(renderer, 50, + 200 + i, 500, 200 + i);
-
-i++;
-
-
-    // Update the s creen
-    SDL_RenderPresent(renderer);
- 
-
-
-
+        // Update the screen
+        SDL_RenderPresent(renderer);
 
         // Delay to reduce CPU usage
-        SDL_Delay(10);
+        //SDL_Delay(10);
     }
 
     // Clean up
