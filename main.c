@@ -8,6 +8,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    //Variables:
+    int i = 1;
+
     // Create a window
     SDL_Window *window = SDL_CreateWindow("Movable Window",
                                           SDL_WINDOWPOS_UNDEFINED,
@@ -68,15 +71,18 @@ int main(int argc, char *argv[]) {
      SDL_SetRenderDrawColor(renderer, 0, 0 ,0, 255);
      SDL_RenderClear(renderer);
 
-         // Set the draw color to red and draw a filled rectangle
+    // Set the draw color to red and draw a filled rectangle
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_Rect rect = {100, 300, 100, 100};
     SDL_RenderFillRect(renderer, &rect);
 
 
-// (x1,y1) and (x2,y2)
-SDL_RenderDrawLine(renderer, 50, 50, 200, 200);
 
+i * 10;
+// (x1,y1) and (x2,y2)
+SDL_RenderDrawLine(renderer, 50, + 200 + i, 500, 200 + i);
+
+i++;
 
 
     // Update the s creen
