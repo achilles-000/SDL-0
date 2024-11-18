@@ -8,6 +8,7 @@
     bool left;
     bool up;
     bool down;
+    int vertical;
 
     };
 
@@ -19,13 +20,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Variables:
-    struct direction dir0 = { false, false, false, false };
-    struct direction dir1 = { false, false, false, false };
-    int i = 1;
-
-    int horizontal = 100;
-    int vertical = 300;
-
+    struct direction dir0 = { false, false, false, false, 300 };
+    struct direction dir1 = { false, false, false, false, 300 };
 
 
     // Create a window
@@ -82,32 +78,32 @@ int main(int argc, char *argv[]) {
                 }
                 case SDL_KEYDOWN: {
                     if (event.key.keysym.sym == SDLK_w) {
-                        up = true;
-                    }
-                    if (event.key.keysym.sym == SDLK_a) {
-                        left = true;
+                        dir0.up = true;
                     }
                     if (event.key.keysym.sym == SDLK_s) {
-                        down = true;
+                        dir0.down = true;
                     }
-                    if (event.key.keysym.sym == SDLK_d) {
-                        right = true;
+                    if (event.key.keysym.sym == SDLK_UP) {
+                        dir1.up = true;
+                    }
+                    if (event.key.keysym.sym == SDLK_DOWN) {
+                        dir1.down = true;
                     }
                     break;
 
                 }
                 case SDL_KEYUP: {
                     if (event.key.keysym.sym == SDLK_w) {
-                        up = false;
-                    }
-                    if (event.key.keysym.sym == SDLK_a) {
-                        left = false;
+                        dir0.up = false;
                     }
                     if (event.key.keysym.sym == SDLK_s) {
-                        down = false;
+                        dir0.down = false;
                     }
-                    if (event.key.keysym.sym == SDLK_d) {
-                        right = false;
+                    if (event.key.keysym.sym == SDLK_UP) {
+                        dir1.up = false;
+                    }
+                    if (event.key.keysym.sym == SDLK_DOWN) {
+                        dir1.down = false;
                     }
                     break;
 
@@ -117,10 +113,12 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        if(up == true)vertical -= 1;
-        if(down == true)vertical += 1;
-        if(left == true)horizontal -= 1;
-        if(right == true)horizontal += 1;
+        if (dir0.up == true && dir0.vertical > 0) dir0.vertical -= 1;
+        if (dir0.down == true && dir0.vertical < 380) dir0.vertical += 1;
+        if (dir1.up == true && dir1.vertical > 0) dir1.vertical -= 1;
+        if (dir1.down == true && dir1.vertical < 380) dir1.vertical += 1;
+        
+
         
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -128,9 +126,12 @@ int main(int argc, char *argv[]) {
 
         // Set the draw color to red and draw a filled rectangle
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_Rect rect = {horizontal, vertical, 25, 100};
-        SDL_RenderFillRect(renderer, &rect);
 
+        SDL_Rect rect0 = {5, dir0.vertical, 25, 100};
+        SDL_Rect rect1 = {610, dir1.vertical, 25, 100};
+        SDL_RenderFillRect(renderer, &rect0);
+        SDL_RenderFillRect(renderer, &rect1);
+        
         // Update the screen
         SDL_RenderPresent(renderer);
 
