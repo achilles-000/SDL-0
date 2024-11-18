@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
+    int speed = 1;
 
 
     // Create a window
@@ -118,9 +119,6 @@ int main(int argc, char *argv[]) {
         if (dir1.up == true && dir1.vertical > 0) dir1.vertical -= 1;
         if (dir1.down == true && dir1.vertical < 380) dir1.vertical += 1;
         
-
-        
-
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
@@ -132,6 +130,13 @@ int main(int argc, char *argv[]) {
         SDL_RenderFillRect(renderer, &rect0);
         SDL_RenderFillRect(renderer, &rect1);
         
+        SDL_Rect ball = {300, 220, 20, 20};
+        SDL_RenderFillRect(renderer, &ball);
+
+
+
+
+
         // Update the screen
         SDL_RenderPresent(renderer);
 
