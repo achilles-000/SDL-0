@@ -2,6 +2,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+
+    struct direction {
+    bool right;
+    bool left;
+    bool up;
+    bool down;
+
+    };
+
 int main(int argc, char *argv[]) {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -10,21 +19,14 @@ int main(int argc, char *argv[]) {
     }
 
     // Variables:
+    struct direction dir0 = { false, false, false, false };
+    struct direction dir1 = { false, false, false, false };
     int i = 1;
-    bool right = false;
-    bool left = false;
-    bool up = false;
-    bool down = false;
+
     int horizontal = 100;
     int vertical = 300;
 
-    struct direction {
-        bool up =false;
 
-
-
-
-    }
 
     // Create a window
     SDL_Window *window = SDL_CreateWindow("Movable Window",
