@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
-    int speed = 1;
+    int speedX = 1, speedY = 1, ballX = 300, ballY = 220;
 
 
     // Create a window
@@ -129,9 +129,21 @@ int main(int argc, char *argv[]) {
         SDL_Rect rect1 = {610, dir1.vertical, 25, 100};
         SDL_RenderFillRect(renderer, &rect0);
         SDL_RenderFillRect(renderer, &rect1);
+
+        //Boundries of the ball
+        if(ballX >= 620 || ballX <= 0) speedX *= -1;
+        if(ballY >= 460 || ballY <= 0) speedY *= -1;
         
-        SDL_Rect ball = {300, 220, 20, 20};
+        //Makes the ball move by 1 every iteration
+        ballX += speedX;
+        ballY += speedY;
+
+
+        
+        SDL_Rect ball = {ballX, ballY, 20, 20};
         SDL_RenderFillRect(renderer, &ball);
+
+
 
 
 
@@ -139,7 +151,7 @@ int main(int argc, char *argv[]) {
 
         // Update the screen
         SDL_RenderPresent(renderer);
-
+        SDL_Delay(5);
 
     }
 
