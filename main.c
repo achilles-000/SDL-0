@@ -4,13 +4,13 @@
 
 
     struct direction {
-    bool right;
-    bool left;
-    bool up;
-    bool down;
-    int vertical;
-
+        bool right;
+        bool left;
+        bool up;
+        bool down;
+        int vertical;
     };
+
 
 int main(int argc, char *argv[]) {
     // Initialize SDL
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
-    int speedX = 1, speedY = 1, ballX = 300, ballY = 220, score = 0;
+    int speedX = 1, speedY = 1, ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
 
 
     // Create a window
@@ -131,10 +131,17 @@ int main(int argc, char *argv[]) {
         SDL_RenderFillRect(renderer, &rect1);
 
         //Boundries of the ball
-        if(ballX >= 620 || ballX <= 0) {
+        if(ballX >= 620) {
             speedX *= -1;
-            score += 1;
+            scoreP1 += 1;
+            printf("\nScore P1: %d", scoreP1);
         }
+        if(ballX <= 0){
+            speedX *= -1;
+            scoreP2 += 1;
+            printf("\nScore P2: %d", scoreP2);
+        }
+
         if(ballY >= 460 || ballY <= 0) speedY *= -1;
         
         //Makes the ball move by 1 every iteration
@@ -144,9 +151,13 @@ int main(int argc, char *argv[]) {
         SDL_Rect ball = {ballX, ballY, 20, 20};
         SDL_RenderFillRect(renderer, &ball);
 
-        printf("\nScore: %d", score);
 
 
+
+        //Check if ball and player are overlapping
+        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX == 30 ) speedX *= -1;
+        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX == 595 ) speedX *= -1;
+        
 
 
 
