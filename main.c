@@ -11,6 +11,16 @@
         int vertical;
     };
 
+void middle_Line(SDL_Renderer *renderer){
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    for(int y = 0; y < 500; y += 25){ 
+        SDL_Rect line = {317, y, 6, 25};
+        SDL_RenderFillRect(renderer, &line);
+    }
+
+
+}
+
 
 int main(int argc, char *argv[]) {
     // Initialize SDL
@@ -22,7 +32,7 @@ int main(int argc, char *argv[]) {
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
-    int speedX = 10, speedY = 10, ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
+    int speedX = 1, speedY = 1, ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
 
 
     // Create a window
@@ -45,6 +55,8 @@ int main(int argc, char *argv[]) {
         SDL_Quit();
         return 1;
     }
+
+
 
     // Main loop
     SDL_bool running = SDL_TRUE;
@@ -114,10 +126,13 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        if (dir0.up == true && dir0.vertical > 0) dir0.vertical -= 10;
-        if (dir0.down == true && dir0.vertical < 380) dir0.vertical += 10;
-        if (dir1.up == true && dir1.vertical > 0) dir1.vertical -= 10;
-        if (dir1.down == true && dir1.vertical < 380) dir1.vertical += 10;
+
+
+
+        if (dir0.up == true && dir0.vertical > 0) dir0.vertical -= 3;
+        if (dir0.down == true && dir0.vertical < 380) dir0.vertical += 3;
+        if (dir1.up == true && dir1.vertical > 0) dir1.vertical -= 3;
+        if (dir1.down == true && dir1.vertical < 380) dir1.vertical += 3;
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
@@ -155,11 +170,11 @@ int main(int argc, char *argv[]) {
 
 
         //Check if ball and player are overlapping
-        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX == 30) speedX *= -1;
-        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX == 595) speedX *= -1;
+        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX <= 30) speedX *= -1;
+        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX >= 595) speedX *= -1;
         
 
-
+        middle_Line(renderer);
 
         // Update the screen
         SDL_RenderPresent(renderer);
