@@ -13,7 +13,7 @@
 
 void middle_Line(SDL_Renderer *renderer){
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    for(int y = 0; y < 500; y += 25){ 
+    for(int y = 0; y <= 480; y += 65){ 
         SDL_Rect line = {317, y, 6, 25};
         SDL_RenderFillRect(renderer, &line);
     }
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
                                           640, 480,
-                                          SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+                                          SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);  //SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE); for resizeable
     if (window == NULL) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
         SDL_Quit();
