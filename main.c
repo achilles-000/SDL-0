@@ -171,8 +171,16 @@ int main(int argc, char *argv[]) {
 
 
         //Check if ball and player are overlapping
-        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX <= 30) speedX *= -1, speedX *= 1.1, speedY *= 1.1;
-        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX >= 595) speedX *= -1, speedX *= 1.1, speedY *= 1.1;
+        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX <= 30) {
+            speedX *= -1;
+            speedX *= 1.005; // Gradually increase speed in X
+            speedY *= 1.005; 
+        }
+        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX >= 595) {
+            speedX *= -1;
+            speedX *= 1.005; 
+            speedY *= 1.005;
+        }
         
 
         middle_Line(renderer);
