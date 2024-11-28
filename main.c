@@ -32,7 +32,8 @@ int main(int argc, char *argv[]) {
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
-    int speedX = 1, speedY = 1, ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
+    int ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
+    float speedX = 1.0, speedY = 1.0;
 
 
     // Create a window
@@ -170,8 +171,8 @@ int main(int argc, char *argv[]) {
 
 
         //Check if ball and player are overlapping
-        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX <= 30) speedX *= -1;
-        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX >= 595) speedX *= -1;
+        if(ballY > dir0.vertical && (ballY < dir0.vertical + 100 ) && ballX <= 30) speedX *= -1, speedX *= 1.1, speedY *= 1.1;
+        if(ballY > dir1.vertical && (ballY < dir1.vertical + 100 ) && ballX >= 595) speedX *= -1, speedX *= 1.1, speedY *= 1.1;
         
 
         middle_Line(renderer);
