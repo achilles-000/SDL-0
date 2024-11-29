@@ -5,6 +5,7 @@
 
 
 
+
     struct direction {
         bool right;
         bool left;
@@ -31,15 +32,23 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // Initialize SDL_ttf
+    if (TTF_Init() == -1) {
+        fprintf(stderr, "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+        return 1;
+    }
+
     // Variables:
     struct direction dir0 = { false, false, false, false, 300 };
     struct direction dir1 = { false, false, false, false, 300 };
     int ballX = 300, ballY = 220, scoreP1 = 0, scoreP2 = 0;
     float speedX = 1.0, speedY = 1.0;
+    char scoreText[50];
+    char scoreText2[50];
 
 
     // Create a window
-    SDL_Window *window = SDL_CreateWindow("Movable Window",
+    SDL_Window *window = SDL_CreateWindow("Pong",
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
                                           640, 480,
@@ -184,18 +193,70 @@ int main(int argc, char *argv[]) {
             //speedY *= 1.005;
         }
         
-
+        // Function to draw middle line
         middle_Line(renderer);
+
+
+
+        //Text ---------------------------------------------------
+        
+
+        sprintf(scoreText, "%d", scoreP1);
+        sprintf(scoreText2, "%d", scoreP2);
+
+        //Font and size and color
+        TTF_Font* Sans = TTF_OpenFont("bit5x3.ttf", 24);
+        SDL_Color White = {255, 255, 255};
+
+
+        // TTF_RenderText_Solid can only be used on a surface
+        // create a surface:
+        SDL_Surface *surfaceMessage = 
+            TTF_RenderText_Solid(Sans, scoreText, White);
+        SDL_Surface *surfaceMessage2 = 
+            TTF_RenderText_Solid(Sans, scoreText2, White);
+
+        
+        SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+        SDL_Texture *Message2 = SDL_CreateTextureFromSurface(renderer, surfaceMessage2);
+
+        SDL_Rect Message_rect; 
+        Message_rect.x = 230; //x cord
+        Message_rect.y = 10; //y cord
+        Message_rect.w = 50;  //width
+        Message_rect.h = 50; //height
+    
+        SDL_Rect Message_rect2; 
+        Message_rect2.x = 370; //x cord
+        Message_rect2.y = 10; //y cord
+        Message_rect2.w = 50;  //width
+        Message_rect2.h = 50; //height
+
+        SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+        SDL_RenderCopy(renderer, Message2, NULL, &Message_rect2);
+
+        
+
+
+
 
         // Update the screen
         SDL_RenderPresent(renderer);
-        //SDL_Delay(2);
+
+
+
+
+
+
 
     }
 
     // Clean up
+
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
     return 0;
 }
