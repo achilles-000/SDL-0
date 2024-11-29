@@ -161,12 +161,12 @@ int main(int argc, char *argv[]) {
         if(ballX >= 620) {
             speedX *= -1;
             scoreP1 += 1;
-            printf("\nScore P1: %d", scoreP1);
+            //printf("\nScore P1: %d", scoreP1);
         }
         if(ballX <= 0){
             speedX *= -1;
             scoreP2 += 1;
-            printf("\nScore P2: %d", scoreP2);
+            //printf("\nScore P2: %d", scoreP2);
         }
 
         if(ballY >= 460 || ballY <= 0) speedY *= -1;
